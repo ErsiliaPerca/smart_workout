@@ -47,4 +47,30 @@ class UserController extends AbstractController
         ]);
 
     }
+
+    #[Route('/user/{id}', name: 'show_user', requirements: ['id' => '\d+'])]
+    public function show(UserRepository $userRepository, int $id): Response
+    {
+        $user = $userRepository->find($id);
+
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'No user found for id ' . $id
+            );
+        }
+
+        return $this->render('user/show.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+    #[Route('/user/list', name: 'list_user')]
+    public function list(UserRepository $userRepository): Response
+    {
+        $users = $userRepository->findAll();
+
+        return $this->render('user/list.html.twig', [
+            'users' => $users,
+        ]);
+    }
 }
