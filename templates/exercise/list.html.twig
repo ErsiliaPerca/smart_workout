@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List Of Exercises!{% endblock %}
+
+{% block body %}
+
+    <h1>List of Exercises</h1>
+
+    <ul>
+        {% for exercise in exercises %}
+            <li>ID: {{ exercise.id }} - Name: {{ exercise.name }} - Muscle Group: {{ exercise.muscleGroup.name }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create Exercise!{% endblock %}
+
+{% block body %}
+    {{ form(form) }}
+    {% for message in app.flashes('error') %}
+        <div class="error-message">{{ message }}</div>
+    {% endfor %}
+{% endblock %}

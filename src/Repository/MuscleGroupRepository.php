@@ -40,4 +40,14 @@ class MuscleGroupRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function saveMuscleGroup(MuscleGroup $muscleGroup): void
+    {
+        $this->getEntityManager()->persist($muscleGroup);
+        $this->getEntityManager()->flush();
+    }
+
+    public function findByName(string $name): ?MuscleGroup
+    {
+        return $this->findOneBy(['name' => $name]);
+    }
 }

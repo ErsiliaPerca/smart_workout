@@ -40,4 +40,15 @@ class ExerciseRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function saveExercise(Exercise $exercise): void
+    {
+        $this->getEntityManager()->persist($exercise);
+        $this->getEntityManager()->flush();
+    }
+
+    public function findByName(string $name): ?Exercise
+    {
+        return $this->findOneBy(['name' => $name]);
+    }
 }
