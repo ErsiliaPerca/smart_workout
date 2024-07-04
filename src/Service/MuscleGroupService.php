@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\MuscleGroup;
 use App\Repository\MuscleGroupRepository;
 
 class MuscleGroupService
@@ -13,14 +14,18 @@ class MuscleGroupService
         $this->muscleGroupRepository = $muscleGroupRepository;
     }
 
-    public function validate(string $name): bool
+    public function save(MuscleGroup $muscleGroup): array
     {
-        $existingMuscleGroup = $this->muscleGroupRepository->findByName($name);
-        return $existingMuscleGroup === null;
+        try {
+            $existingMuscleGroup = $this->muscleGroupRepository->findByName($muscleGroup->getName());
+            if ($existingMuscleGroup) {
+                throw new \Exception("MuscleGroup already exists");
+            }
+            $this->muscleGroupRepository->saveMuscleGroup($muscleGroup);
+            return ["success" => true];
+        } catch (\Exception $exception) {
+            return ['error' => true, 'message' => $exception->getMessage()];
+        }
     }
 
-    public function save(\App\Entity\MuscleGroup $muscleGroup): void
-    {
-        $this->muscleGroupRepository->saveMuscleGroup($muscleGroup);
-    }
 }

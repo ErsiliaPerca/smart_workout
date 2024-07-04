@@ -3,6 +3,7 @@
 namespace App\Service;
 
 
+use App\Entity\Exercise;
 use App\Repository\ExerciseRepository;
 
 class ExerciseService
@@ -14,14 +15,43 @@ class ExerciseService
         $this->exerciseRepository = $exerciseRepository;
     }
 
-    public function validate(string $name): bool
+    public function getExerciseById($exerciseId): object
     {
-        $existingExercise = $this->exerciseRepository->findByName($name);
-        return $existingExercise === null;
+        return $this->exerciseRepository->find($exerciseId);
+
     }
 
-    public function save(\App\Entity\Exercise $exercise): void
+//    public function getAllExercises()
+//    {
+//        return $this->exerciseRepository->findAll();
+//    }
+
+    /**
+     * @throws \Exception
+     */
+    public function save(Exercise $exercise): void
     {
+        $existingExercise = $this->exerciseRepository->findByName($exercise->getName());
+        if ($existingExercise) {
+            throw new \Exception("Exercise already exists");
+        }
         $this->exerciseRepository->saveExercise($exercise);
     }
+
+    /**
+     * @throws \Exception
+     */
+    public function update(Exercise $exercise, int $id): void
+    {
+        $existingExercise = $this->exerciseRepository->findByNameExcludingId($exercise->getName(),  $exercise->getId());
+        if ($existingExercise) {
+            throw new \Exception("Another exercise with the same name already exists");
+        }
+        $this->exerciseRepository->saveExercise($exercise);
+    }
+
+   public function deleteExercise(Exercise $exercise): void
+   {
+      $this->exerciseRepository->delete($exercise);
+   }
 }

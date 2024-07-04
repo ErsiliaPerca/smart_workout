@@ -13,13 +13,6 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class UserController extends AbstractController
 {
-    #[Route('/user', name: 'app_user')]
-    public function index(): Response
-    {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
-    }
 
     #[Route('/user/register', name: 'register_user')]
     public function store(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): Response
@@ -44,7 +37,7 @@ class UserController extends AbstractController
 
             // ... perform some action, such as saving the task to the database
 
-            return $this->redirectToRoute('app_user');
+            return $this->redirectToRoute('index_user');
         }
 
         return $this->render('user/register.html.twig', [
@@ -69,12 +62,12 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/user/list', name: 'list_user')]
-    public function list(UserRepository $userRepository): Response
+    #[Route('/users', name: 'index_user')]
+    public function index(UserRepository $userRepository): Response
     {
         $users = $userRepository->findAll();
 
-        return $this->render('user/list.html.twig', [
+        return $this->render('user/index.html.twig', [
             'users' => $users,
         ]);
     }

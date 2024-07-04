@@ -8,13 +8,11 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>List of Users</h1>
 
-    This friendly message is coming from:
     <ul>
-        <li>Your controller at <code>C:/Users/Ersilia/Desktop/smart_workout/smart_workout/src/Controller/UserController.php</code></li>
-        <li>Your template at <code>C:/Users/Ersilia/Desktop/smart_workout/smart_workout/templates/user/index.html.twig</code></li>
+        {% for user in users %}
+            <li>ID: {{ user.id }} - Email: {{ user.email }}</li>
+        {% endfor %}
     </ul>
-</div>
 {% endblock %}

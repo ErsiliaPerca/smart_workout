@@ -1,20 +1,149 @@
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ExerciseController!{% endblock %}
+{% block title %}Exercises!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 16px/1.5 sans-serif;
+            box-shadow: 0 0 10px rgb(5, 55, 32);
+            background-color: #5dc697;
+            padding: 10px;
+        }
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/Ersilia/Desktop/smart_workout/smart_workout/src/Controller/ExerciseController.php</code></li>
-        <li>Your template at <code>C:/Users/Ersilia/Desktop/smart_workout/smart_workout/templates/exercise/index.html.twig</code></li>
-    </ul>
-</div>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #52c390;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        th, td {
+            padding:8px;
+            text-align: left;
+            border: 1px solid #358860;
+            color: white;
+        }
+
+        th {
+            background-color: #1b784d; /* antet */
+        }
+
+        tr:nth-child(even) {
+            background-color: #4cae80; /* randuri pare*/
+        }
+
+        tr:hover {
+            background-color: #228557;
+        }
+
+        .show-button {
+            background-color: #1b784d;
+            color: white;
+            border: 1px solid #105937;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size:11px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .show-button:hover {
+            background-color: #65b590;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .button-group button {
+            background-color: #1b784d;
+            color: white;
+            border: 1px solid #105937;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: background-color 0.3s ease;        }
+        .button-group button:hover{
+            background-color: #65b590;
+        }
+        h1 {
+            background-color: #1b784d; /* Culoare antet titlu */
+            padding: 10px;
+            margin-top: 0;
+            color: white;
+        }
+    </style>
+
+    <div class="example-wrapper">
+        <h1>Exercises</h1>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Index</th>
+                <th>Name</th>
+                <th>Muscle group</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for exercise in exercises %}
+                <tr>
+                    <td>{{ exercise.id }}</td>
+                    <td>{{ exercise.name }}</td>
+                    <td>
+                        {{ exercise.getMuscleGroup().getName() }}
+                        <a href="{{ path('exercises_for_muscle_group', { 'id': exercise.getMuscleGroup().getId() }) }}" class="show-button">
+                            Show
+                        </a>
+                    </td>
+                    <td>
+                        <div class="button-group">
+                            <form action="{{ path('edit_exercise', { 'id': exercise.id }) }}">
+                                <button>
+                                    Edit
+                                </button>
+                            </form>
+                            <form action="{{ path('delete_exercise', { 'id': exercise.id }) }}" method="delete">
+                                <button>
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">No records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>}
+
+    <script>
+        function editExercise(id) {
+            console.log('edit', id);
+        }
+
+        function deleteExercise(id) {
+            console.log('delete', id);
+        }
+    </script>
 {% endblock %}
+
+
