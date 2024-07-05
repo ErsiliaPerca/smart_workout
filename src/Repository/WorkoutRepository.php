@@ -19,17 +19,16 @@ class WorkoutRepository extends ServiceEntityRepository
     //    /**
     //     * @return Workout[] Returns an array of Workout objects
     //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('w')
-    //            ->andWhere('w.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('w.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+        public function findByUserId($user): array
+        {
+            return $this->createQueryBuilder('w')
+                ->andWhere('w.person = :user')
+                ->setParameter('user', $user)
+                ->orderBy('w.id', 'ASC')
+                ->getQuery()
+                ->getResult()
+            ;
+        }
 
     //    public function findOneBySomeField($value): ?Workout
     //    {
@@ -40,4 +39,14 @@ class WorkoutRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function saveWorkout(Workout $workout): void
+    {
+        $this->getEntityManager()->persist($workout);
+        $this->getEntityManager()->flush();
+    }
+
+    public function findByName(string $name): ?Workout
+    {
+        return $this->findOneBy(['name' => $name]);
+    }
 }
