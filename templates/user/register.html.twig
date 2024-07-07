@@ -2,7 +2,78 @@
 
 {% block title %}Register User!{% endblock %}
 
+{% form_theme form _self %}
+
 {% block body %}
-    {{ form_start(form) }}
-    {{ form_end(form) }}
+    <style>
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 50px); /* inaltimea containerului */
+        }
+
+        #account {
+            background-color: #0ca35d;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-floating {
+            margin-bottom: 15px;
+        }
+
+        /* buton de inregistrare */
+        .form-container button[type="submit"] {
+            background-color: #0c5a37;
+            border: none;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Hover pentru buton de inregistrare */
+        .form-container button[type="submit"]:hover {
+            background-color: #65b590;
+            color: #fff;
+        }
+
+        /* titlu */
+        .form-container h1 {
+            color: #fff;
+        }
+
+        /* Stilizare pentru input si label pentru a ascunde label-ul cand input-ul este focusat */
+        .form-floating input:focus ~ label,
+        .form-floating input:not(:placeholder-shown) ~ label {
+            opacity: 0;
+        }
+    </style>
+    <div class="form-container">
+        <div id="account">
+            {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
+            <h1 class="h3 mb-3 font-weight-normal">Please register!</h1>
+            {% for field in form %}
+                <div class="form-floating">
+                    {{ form_widget(field, {'attr': {'class': 'form-control', 'placeholder': field.vars.label}}) }}
+                    {{ form_label(field, null, {'attr': {'class': 'form-label'}}) }}
+                    {{ form_errors(field) }}
+                </div>
+            {% endfor %}
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block _user_button_errors %}
+{% endblock %}
+{% block submit_errors %}
+{% endblock %}
+{% block button_errors %}
 {% endblock %}

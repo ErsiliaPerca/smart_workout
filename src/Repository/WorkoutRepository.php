@@ -49,4 +49,10 @@ class WorkoutRepository extends ServiceEntityRepository
     {
         return $this->findOneBy(['name' => $name]);
     }
+
+    public function delete(Workout $workout): void
+    {
+        $this->getEntityManager()->remove($workout);
+        $this->getEntityManager()->flush();
+    }
 }

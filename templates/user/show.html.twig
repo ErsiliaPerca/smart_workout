@@ -1,9 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Show User!{% endblock %}
+{% block title %}User Details{% endblock %}
 
 {% block body %}
-    <h1>Details:</h1>
-    <p>ID: {{ user.id }}</p>
-    <p>Email: {{ user.email }}</p>
+    <div class="container">
+        <h1>User Details</h1>
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Name: {{ user.name }}</h5>
+                <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+            </div>
+        </div>
+
+        {% if user.workouts is not empty %}
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Workouts</h2>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for workout in user.workouts %}
+                        <li class="list-group-item">{{ workout.name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <div class="alert alert-info" role="alert">
+                No workouts found for this user.
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}

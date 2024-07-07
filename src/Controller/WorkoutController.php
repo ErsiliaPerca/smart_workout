@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class WorkoutController extends AbstractController
 {
@@ -29,6 +30,8 @@ class WorkoutController extends AbstractController
     /**
      * @throws \Exception
      */
+
+    #[IsGranted('ROLE_USER')]
     #[Route('/workout/create', name: 'create_workout')]
     public function store(Request $request, WorkoutService $workoutService): Response
     {
@@ -57,5 +60,21 @@ class WorkoutController extends AbstractController
         ]);
 
     }
+
+    #[Route('/workout/{id}', name: 'delete_workout', methods: ['DELETE'])]
+    public function destroy(Request $request, WorkoutService $workoutService, $id): Response
+    {
+       $workout = $workoutService->getWorkoutById($id);
+        try {
+            $workoutService->deleteWorkout($workout);
+            $this->addFlash('success', 'Workout deleted successfully');
+        } catch (\Exception $e) {
+            $this->addFlash('error', $e->getMessage());
+        }
+
+        return $this->redirectToRoute('app_workout');
+
+    }
+
 
 }

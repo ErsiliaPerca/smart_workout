@@ -28,5 +28,17 @@ class WorkoutService
        return $this->workoutRepository->findByUserId($user);
 
     }
+    public function getWorkoutById($workoutId): object
+    {
+        return $this->workoutRepository->find($workoutId);
+
+    }
+
+
+    public function deleteWorkout(Workout $workout): void
+    {
+        $this->workoutRepository->delete($workout);
+    }
+
 
 }

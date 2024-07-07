@@ -3,70 +3,64 @@
 {% block title %}Workouts!{% endblock %}
 
 {% block body %}
-    <style>
-        .example-wrapper {
-            margin: 1em auto;
-            max-width: 800px;
-            width: 95%;
-            font: 18px/1.5 sans-serif;
-        }
-
-        .example-wrapper code {
-            background: #F5F5F5;
-            padding: 2px 6px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table, th, td {
-            border: 1px solid black;
-        }
-
-        th, td {
-            padding: 8px;
-            text-align: left;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 10px;
-        }
-
-        .button-group button {
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-    </style>
-
-    <div class="example-wrapper">
-        <h1>Exercises</h1>
-
-        <table>
-            <thead>
-            <tr>
-                <th>Index</th>
-                <th>Name</th>
-                <th>Performed</th>
-
-            </tr>
-            </thead>
-            <tbody>
-            {% for workout in workouts %}
-                <tr>
-                    <td>{{ workout.id }}</td>
-                    <td>{{ workout.name }}</td>
-                    <td>{{ workout.createdAt|date("m/d/Y h:m")}}</td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="3">No records found</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="card-title">Workouts</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Index</th>
+                                <th>Name</th>
+                                <th>Performed</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for workout in workouts %}
+                                <tr>
+                                    <td>{{ workout.id }}</td>
+                                    <td>{{ workout.name }}</td>
+                                    <td>{{ workout.createdAt|date("m/d/Y h:m") }}</td>
+                                    <td>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteWorkout('{{ path('delete_workout', { 'id': workout.id }) }}')">Delete</button>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="4" class="text-center">No records found</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <a href="{{ path('create_workout') }}" class="btn btn-success mt-3">Create Workout!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <script>
+        function deleteWorkout(url) {
+            fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload(); // Refresh page after successful deletion
+                    } else {
+                        throw new Error('Failed to delete workout');
+                    }
+                })
+                .catch(error => console.error('Error deleting workout:', error));
+        }
+    </script>
 {% endblock %}
+
