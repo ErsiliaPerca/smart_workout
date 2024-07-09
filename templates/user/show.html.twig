@@ -3,6 +3,13 @@
 {% block title %}User Details{% endblock %}
 
 {% block body %}
+    <style>
+        .anchor {
+            text-decoration: none;
+            color: black;
+            width: 100%;
+        }
+    </style>
     <div class="container">
         <h1>User Details</h1>
 
@@ -20,7 +27,11 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     {% for workout in user.workouts %}
-                        <li class="list-group-item">{{ workout.name }}</li>
+                        <li class="list-group-item" style="display: flex">
+                            <a class="anchor" href="{{ path('show_workout',  { 'id': workout.id }) }}">
+                                {{ workout.name }}
+                            </a>
+                        </li>
                     {% endfor %}
                 </ul>
             </div>

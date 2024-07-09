@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Workout Details{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Workout Details</h1>
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Name: {{ workout.name }}</h5>
+            </div>
+        </div>
+
+        {% if workout.exerciselogs is not empty %}
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Exercise Log</h2>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for exerciselog in workout.exerciselogs %}
+                        <li class="list-group-item">{{ exerciselog.exercise.name }}</li>
+                        <li class="list-group-item">{{ exerciselog.duration }}</li>
+                        <li class="list-group-item">{{ exerciselog.reps }}</li>
+                        <li class="list-group-item">{{ exerciselog.sets }}</li>
+
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <div class="alert alert-info" role="alert">
+                No workouts found for this user.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

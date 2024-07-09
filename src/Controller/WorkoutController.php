@@ -75,6 +75,20 @@ class WorkoutController extends AbstractController
         return $this->redirectToRoute('app_workout');
 
     }
+    #[Route('/workout/{id}', name: 'show_workout', requirements: ['id' => '\d+'])]
+    public function show(WorkoutRepository $workoutRepository, int $id): Response
+    {
+        $workout = $workoutRepository->find($id);
 
+        if (!$workout) {
+            throw $this->createNotFoundException(
+                'No workout found for id ' . $id
+            );
+        }
+
+        return $this->render('workout/show.html.twig', [
+            'workout' => $workout,
+        ]);
+    }
 
 }

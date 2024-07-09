@@ -1,17 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block title %}Users!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-    <h1>List of Users</h1>
-
-    <ul>
-        {% for user in users %}
-            <li>ID: {{ user.id }} - Email: {{ user.email }} -Name: {{ user.name }}</li>
-        {% endfor %}
-    </ul>
+    <style>
+        .table-container {
+            max-height: 460px;
+            overflow-y: scroll;
+        }
+    </style>
+    <div class="container mt-4 table-container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="card-title">Users</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Index</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for user in users %}
+                                <tr>
+                                    <td>{{ user.id }}</td>
+                                    <td>{{ user.name }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>
+                                        <a href="{{ path('show_user',  { 'id': user.id }) }}" class="btn btn-success btn-sm ml-2">
+                                            Show
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="4" class="text-center">No records found</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+
