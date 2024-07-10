@@ -1,11 +1,90 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Create MuscleGroup!{% endblock %}
+{% block title %}Create Muscle Group!{% endblock %}
+
+{% block stylesheets %}
+   <style>
+      .custom-table {
+         width: 45%;
+         margin: 40px auto 50px auto;
+         border-collapse: collapse;
+         background-color: #212529;
+         color: #fff;
+         font-size: 14px;
+      }
+
+      .custom-table th {
+         background-color: #1d6c47;
+         color: white;
+         padding: 8px 15px;
+         text-align: left;
+      }
+
+      .custom-table td {
+         padding: 8px;
+         border: 1px solid #212529;
+         text-align: left;
+      }
+
+      .form-group {
+         margin-bottom: 15px;
+      }
+
+      .form-control {
+         background-color: #3e454a;
+         color: #fff;
+         border-color: #6c757d;
+         margin-left: 2px;
+      }
+
+      .btn-success {
+         background-color: #18613f;
+         border-color: #0e4a2e;
+         margin-top: 10px;
+         float: right;
+      }
+
+      .btn-success:hover {
+         background-color: #44936f;
+         border-color: #367357;
+      }
+
+      .error-message {
+         color: red;
+         margin-top: 5px;
+         text-align: left;
+      }
+   </style>
+{% endblock %}
 
 {% block body %}
-   {{ form(form) }}
-   {% for message in app.flashes('error') %}
-      <div class="error-message">{{ message }}</div>
-   {% endfor %}
+   <table class="custom-table">
+      <thead>
+      <tr>
+         <th colspan="2">Create Muscle Group</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+         <td>{{ form_start(form) }}</td>
+      </tr>
+      <tr>
+         <td>{{ form_row(form.name) }}</td>
+      </tr>
+      {% for message in app.flashes('error') %}
+         <tr>
+            <td colspan="2">
+               <div class="error-message">{{ message }}</div>
+            </td>
+         </tr>
+      {% endfor %}
+      <tr>
 
+      </tr>
+      <tr>
+         <td>{{ form_end(form) }}</td>
+      </tr>
+      </tbody>
+   </table>
 {% endblock %}
+

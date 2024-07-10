@@ -3,34 +3,67 @@
 {% block title %}Create Exercise!{% endblock %}
 
 {% block body %}
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header bg-success text-white">
-                    <h5 class="card-title">Create Exercise!</h5>
-                </div>
-                <div class="card-body">
-                    {{ form_start(form) }}
-
-                    <div class="form-floating mb-3">
-                        {{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder': 'Exercise Name'}}) }}
-                        {{ form_label(form.name, 'Exercise Name', {'label_attr': {'class': 'form-label'}}) }}
-                        {{ form_errors(form.name) }}
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="card-title">Create Exercise!</h5>
                     </div>
+                    <div class="card-body">
+                        {{ form_start(form) }}
 
-                    <div class="form-floating mb-3">
-                        {{ form_widget(form.muscleGroup, {'attr': {'class': 'form-control'}}) }}
-                        {{ form_label(form.muscleGroup, 'Muscle Group', {'label_attr': {'class': 'form-label'}}) }}
-                        {{ form_errors(form.muscleGroup) }}
+                        <div class="form-group  mb-3">
+                            {{ form_label(form.name, 'Exercise Name', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder': 'Exercise Name'}}) }}
+                            {{ form_errors(form.name) }}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            {{ form_label(form.muscleGroup, 'Muscle Group', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.muscleGroup, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.muscleGroup) }}
+                        </div>
+
+                        {{ form_end(form) }}
                     </div>
-
-                    {{ form_end(form) }}
                 </div>
             </div>
         </div>
     </div>
-</div>
-{% endblock %}
 
+    <style>
+        .card {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.125);
+            color: #fff; /* Text alb */
+        }
+        .card-header {
+            background-color: #28a745;
+            color: #fff; /* Alb */
+            border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+        }
+        .card-body {
+            background-color: #1b2125;
+        }
+        .form-label {
+            color: #fff;
+        }
+        .form-control {
+            background-color: #343a40;
+            color: #fff ;
+
+            border-color: #6c757d;
+        }
+
+            .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+    </style>
+{% endblock %}
 

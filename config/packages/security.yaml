@@ -19,6 +19,7 @@ security:
       form_login:
         login_path: app_login
         check_path: app_login
+        default_target_path: app_workout
         enable_csrf: true
       logout:
         path: app_logout
@@ -36,6 +37,8 @@ security:
   access_control:
     - { path: ^/workout, roles: IS_AUTHENTICATED_FULLY }
     - { path: ^/users, roles: ROLE_TRAINER}
+    - { path: ^/muscle-group, roles: ROLE_TRAINER}
+    - { path: ^/muscle-group/create, roles: ROLE_TRAINER}
       # - { path: ^/admin, roles: ROLE_ADMIN }
     # - { path: ^/profile, roles: ROLE_USER }
 

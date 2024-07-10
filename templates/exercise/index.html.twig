@@ -6,17 +6,17 @@
     <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-md-10">
-                <div class="card">
+                <div class="card ">
                     <div class="card-header bg-success text-white">
                         <h5 class="card-title">Exercises</h5>
                     </div>
                     <div class="card-body">
-                        <table class="table table-striped table-bordered">
-                            <thead class="thead-dark">
+                        <table class="table table-dark table-bordered">
+                            <thead class="thead-light">
                             <tr>
                                 <th>Index</th>
                                 <th>Name</th>
-                                <th>Muscle group</th>
+                                <th>Muscle Group</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
@@ -51,32 +51,48 @@
                             {% endfor %}
                             </tbody>
                         </table>
-                        <a href="{{ path('create_exercise') }}" class="btn btn-success mt-3">Create Exercise!</a>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-<script>
-    function deleteExercise(url) {
-        fetch(url, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then(response => {
-                if (response.ok) {
-                    location.reload(); // Refresh page after successful deletion
-                } else {
-                    throw new Error('Failed to delete workout');
-                }
-            })
-            .catch(error => console.error('Error deleting workout:', error));
-    }
-        </script>
-{% endblock %}
+    <style>
+        .card {
+            background-color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) ;
+            color: #fff !important;
+            opacity:2;
+        }
+        .card-body{
+            padding : 0;
+        }
 
+
+        .table-custom-black th,
+        .table-custom-black td {
+            border-color: #000 !important;
+        }
+
+    </style>
+    <script>
+        function deleteExercise(url) {
+            fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload(); // Refresh page after successful deletion
+                    } else {
+                        throw new Error('Failed to delete exercise');
+                    }
+                })
+                .catch(error => console.error('Error deleting exercise:', error));
+        }
+    </script>
+{% endblock %}
 
 
 

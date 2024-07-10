@@ -4,7 +4,14 @@
 
 {% block body %}
     <h1>Exercises for {{ muscleGroup.getName() }}</h1>
-
+<style>
+    body {
+        color: white;
+    }
+    a {
+        color: #198754;
+    }
+</style>
     <ul>
         {% for exercise in exercises %}
             <li>{{ exercise.name }}</li>

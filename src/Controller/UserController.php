@@ -14,6 +14,9 @@ use Symfony\Component\Routing\Attribute\Route;
 class UserController extends AbstractController
 {
 
+    /**
+     * @throws \Exception
+     */
     #[Route('/user/register', name: 'register_user')]
     public function store(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): Response
     {
@@ -22,26 +25,33 @@ class UserController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
+        $errorMessage = null;
         if ($form->isSubmitted() && $form->isValid()) {
             // $form->getData() holds the submitted values
             // but, the original `$task` variable has also been updated
 
             $user = $form->getData();
-            $password = $passwordHasher->hashPassword($user, $user->getPassword());
-            $user->setPassword($password);
-            $user->setRoles(["ROLES_USER"]);
+            $existingUser = $userRepository->findOneBy(['email' => $user->getEmail()]);
 
-            $userRepository->saveUser($user);
+            if ($existingUser) {
+
+                $errorMessage = 'This email is already registered.';
+            } else {
+                $password = $passwordHasher->hashPassword($user, $user->getPassword());
+                $user->setPassword($password);
+                $user->setRoles(["ROLE_USER"]);
+
+                $userRepository->saveUser($user);
 
 
+                // ... perform some action, such as saving the task to the database
 
-            // ... perform some action, such as saving the task to the database
-
-            return $this->redirectToRoute('index_user');
+                return $this->redirectToRoute('index_user');
+            }
         }
-
         return $this->render('user/register.html.twig', [
             'form' => $form,
+            'errorMessage' => $errorMessage,
         ]);
 
     }

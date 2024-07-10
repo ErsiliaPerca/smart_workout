@@ -4,36 +4,73 @@
 
 {% block body %}
     <style>
+
         .anchor {
             text-decoration: none;
-            color: black;
+            color: #fff;
             width: 100%;
+        }
+        .card {
+            background-color: rgba(var(--bs-success-rgb), var(--bs-bg-opacity));
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background-color: #343a40;
+            color: #fff;
+        }
+        .user-details {
+            background-color: rgb(24, 122, 77);
+            color: #fff;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .user-details h1 {
+            color: #fff;
+            margin-top: 0;
+        }
+        .workouts {
+            margin-bottom: 20px;
+        }
+        .list-group-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: #000;
+        }
+        .list-group-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .alert-info {
+            background-color: #343a40;
+            color: #fff;
         }
     </style>
     <div class="container">
-        <h1>User Details</h1>
-
-        <div class="card mb-3">
-            <div class="card-body">
-                <h5 class="card-title">Name: {{ user.name }}</h5>
-                <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+        <div class="user-details">
+            <h1>User Details</h1>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Name: <span style="color: #fff;">{{ user.name }}</span></h5>
+                    <p class="card-text"><strong>Email:</strong> <span style="color: #fff;">{{ user.email }}</span></p>
+                </div>
             </div>
         </div>
 
         {% if user.workouts is not empty %}
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Workouts</h2>
+            <div class="workouts">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Workouts</h2>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        {% for workout in user.workouts %}
+                            <li class="list-group-item" style="display: flex">
+                                <a class="anchor" href="{{ path('show_workout', { 'id': workout.id }) }}">
+                                    {{ workout.name }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </div>
-                <ul class="list-group list-group-flush">
-                    {% for workout in user.workouts %}
-                        <li class="list-group-item" style="display: flex">
-                            <a class="anchor" href="{{ path('show_workout',  { 'id': workout.id }) }}">
-                                {{ workout.name }}
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
             </div>
         {% else %}
             <div class="alert alert-info" role="alert">
@@ -42,3 +79,4 @@
         {% endif %}
     </div>
 {% endblock %}
+

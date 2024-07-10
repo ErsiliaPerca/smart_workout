@@ -20,10 +20,14 @@ class WorkoutController extends AbstractController
     {
         /** @var User $user */
         $user = $this->getUser();
-        $workouts = $workoutService->findWorkoutsByUser($user);
-
+        if ($this->isGranted('ROLE_TRAINER')) {
+            $workouts = $workoutService->findAllWorkouts(); // Toate antrenamentele
+        } else {
+            $workouts = $workoutService->findWorkoutsByUser($user);
+        }
         return $this->render('workout/index.html.twig', [
             'workouts' => $workouts,
+            'isTrainer' => $this->isGranted('ROLE_TRAINER')
         ]);
     }
 
@@ -31,7 +35,7 @@ class WorkoutController extends AbstractController
      * @throws \Exception
      */
 
-    #[IsGranted('ROLE_USER')]
+
     #[Route('/workout/create', name: 'create_workout')]
     public function store(Request $request, WorkoutService $workoutService): Response
     {

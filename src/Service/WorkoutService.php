@@ -40,5 +40,10 @@ class WorkoutService
         $this->workoutRepository->delete($workout);
     }
 
+    public function findAllWorkouts()
+    {
+        return $this->workoutRepository->findAll();
+    }
+
 
 }
