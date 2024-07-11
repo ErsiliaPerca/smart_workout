@@ -8,14 +8,13 @@
             color: white !important;
         }
         .card {
-
             background-color: #22272d;
             border: 1px solid rgba(0, 0, 0, 0.125);
-            color: #fff; /* Text alb */
+            color: #fff;
         }
         .card-header {
             background-color: rgb(25, 135, 84);
-            color: #fff; /* Alb */
+            color: #fff;
             border-bottom: 1px solid rgba(0, 0, 0, 0.125);
         }
         .card-body {
@@ -25,41 +24,59 @@
             color: #fff;
         }
         .form-control {
-            background-color: #22272d ;
+            background-color: #22272d;
             color: #fff;
             border-color: #6c757d;
         }
-
         .btn-success {
             background-color: #1c6142;
             border-color: #145135;
         }
-        .btn-success:hover {
+        .btn:hover {
             background-color: #469873;
             border-color: #305c48;
         }
+        .btn {
+            background-color: #1c6142;
+            margin-top: 5px;
+        }
+        .alert-error {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 4px;
+        }
     </style>
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header text-white">
-            <p id="heading">Create Muscle Group</p>
-        </div>
-        <div class="card-body">
-            {{ form_start(form) }}
-            <div class="field">
-                {{ form_label(form.name, 'Muscle group Name', {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(form.name, {'attr': {'class': 'input-field', 'placeholder': form.name.vars.label}}) }}
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                {% for label, messages in app.flashes %}
+                    {% if label == 'error' %}
+                        {% for message in messages %}
+                            <div class="alert alert-error">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+                <div class="card">
+                    <div class="card-header text-white">
+                        <p id="heading">Create Muscle Group</p>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                        <div class="field">
+                            {{ form_label(form.name, 'Name', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.name, {'attr': {'class': 'input-field', 'placeholder': form.name.vars.label}}) }}
+                        </div>
+                        {{ form_widget(form.button, {'attr': {'class': 'input-field input-text'}}) }}
+                        {{ form_end(form) }}
+                    </div>
+                </div>
             </div>
-
-            {{ form_widget(form.button, {'attr': {'class': 'input-field input-text'}}) }}
-            {{ form_end(form) }}
-        </div>
-
-    </div>
         </div>
     </div>
-</div>
 {% endblock %}
 

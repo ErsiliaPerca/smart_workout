@@ -1,6 +1,75 @@
+{#{% extends 'base.html.twig' %}#}
+
+{#{% block title %}Create Exercise!{% endblock %}#}
+
+{#{% block body %}#}
+{#    <div class="container mt-4">#}
+{#        <div class="row justify-content-center">#}
+{#            <div class="col-md-10">#}
+{#                <div class="card">#}
+{#                    <div class="card-header bg-success text-white">#}
+{#                        <h5 class="card-title">Create Exercise!</h5>#}
+{#                    </div>#}
+{#                    <div class="card-body">#}
+{#                        {{ form_start(form) }}#}
+
+{#                        <div class="form-group  mb-3">#}
+{#                            {{ form_label(form.name, 'Exercise Name', {'label_attr': {'class': 'form-label'}}) }}#}
+{#                            {{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder': 'Exercise Name'}}) }}#}
+{#                            {{ form_errors(form.name) }}#}
+{#                        </div>#}
+
+{#                        <div class="form-group mb-3">#}
+{#                            {{ form_label(form.muscleGroup, 'Muscle Group', {'label_attr': {'class': 'form-label'}}) }}#}
+{#                            {{ form_widget(form.muscleGroup, {'attr': {'class': 'form-control'}}) }}#}
+{#                            {{ form_errors(form.muscleGroup) }}#}
+{#                        </div>#}
+
+{#                        {{ form_end(form) }}#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+
+{#    <style>#}
+{#        .card {#}
+{#            background-color: rgba(0, 0, 0, 0.8);#}
+{#            border: 1px solid rgba(0, 0, 0, 0.125);#}
+{#            color: #fff; /* Text alb */#}
+{#        }#}
+{#        .card-header {#}
+{#            background-color: #28a745;#}
+{#            color: #fff; /* Alb */#}
+{#            border-bottom: 1px solid rgba(0, 0, 0, 0.125);#}
+{#        }#}
+{#        .card-body {#}
+{#            background-color: #1b2125;#}
+{#        }#}
+{#        .form-label {#}
+{#            color: #fff;#}
+{#        }#}
+{#        .form-control {#}
+{#            background-color: #343a40;#}
+{#            color: #fff ;#}
+
+{#            border-color: #6c757d;#}
+{#        }#}
+
+{#            .btn-success {#}
+{#            background-color: #28a745;#}
+{#            border-color: #28a745;#}
+{#        }#}
+{#        .btn-success:hover {#}
+{#            background-color: #218838;#}
+{#            border-color: #1e7e34;#}
+{#        }#}
+{#    </style>#}
+{#{% endblock %}#}
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Create Exercise!{% endblock %}
+{% block title %}Create Exercise{% endblock %}
 
 {% block body %}
     <div class="container mt-4">
@@ -8,12 +77,12 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header bg-success text-white">
-                        <h5 class="card-title">Create Exercise!</h5>
+                        <h5 class="card-title">Create Exercise</h5>
                     </div>
                     <div class="card-body">
                         {{ form_start(form) }}
 
-                        <div class="form-group  mb-3">
+                        <div class="form-group mb-3">
                             {{ form_label(form.name, 'Exercise Name', {'label_attr': {'class': 'form-label'}}) }}
                             {{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder': 'Exercise Name'}}) }}
                             {{ form_errors(form.name) }}
@@ -34,36 +103,33 @@
 
     <style>
         .card {
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: #22272d; /* Updated background color */
             border: 1px solid rgba(0, 0, 0, 0.125);
-            color: #fff; /* Text alb */
+            color: #fff;
         }
         .card-header {
-            background-color: #28a745;
-            color: #fff; /* Alb */
+            background-color: rgb(25, 135, 84); /* Updated header color */
+            color: #fff;
             border-bottom: 1px solid rgba(0, 0, 0, 0.125);
         }
         .card-body {
-            background-color: #1b2125;
+            background-color: #22272d;
         }
         .form-label {
             color: #fff;
         }
         .form-control {
-            background-color: #343a40;
-            color: #fff ;
-
+            background-color: #343a40; /* Updated form control background color */
+            color: #fff;
             border-color: #6c757d;
         }
-
-            .btn-success {
-            background-color: #28a745;
-            border-color: #28a745;
+        .btn-success {
+            background-color: #1c6142; /* Updated button color */
+            border-color: #145135;
         }
         .btn-success:hover {
-            background-color: #218838;
-            border-color: #1e7e34;
+            background-color: #469873; /* Updated button hover color */
+            border-color: #305c48;
         }
     </style>
 {% endblock %}
-

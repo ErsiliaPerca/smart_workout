@@ -25,17 +25,16 @@ class MuscleGroupController extends AbstractController
     #[Route('/muscle-group/create', name: 'create_muscle_group', methods: ['GET', 'POST'])]
     public function store(Request $request, MuscleGroupService $muscleGroupService): Response
     {
+
         $muscleGroup = new MuscleGroup();
 
         $form = $this->createForm(MuscleGroupType::class, $muscleGroup);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $status = $muscleGroupService->save($muscleGroup);
 
-
-               $status = $muscleGroupService->save($muscleGroup);
-
-            if(isset($status['error']) && $status['error']){
+            if (isset($status['error']) && $status['error']) {
                 $this->addFlash('error', $status['message']);
                 return $this->redirectToRoute('create_muscle_group');
             }
@@ -46,6 +45,27 @@ class MuscleGroupController extends AbstractController
         return $this->render('muscle_group/create.html.twig', [
             'form' => $form,
         ]);
+//        $muscleGroup = new MuscleGroup();
+//
+//        $form = $this->createForm(MuscleGroupType::class, $muscleGroup);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//
+//
+//               $status = $muscleGroupService->save($muscleGroup);
+//
+//            if(isset($status['error']) && $status['error']){
+//                $this->addFlash('error', $status['message']);
+//                return $this->redirectToRoute('create_muscle_group');
+//            }
+//
+//            return $this->redirectToRoute('index_muscle_group');
+//        }
+//
+//        return $this->render('muscle_group/create.html.twig', [
+//            'form' => $form,
+//        ]);
 
     }
 
