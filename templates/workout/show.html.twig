@@ -8,91 +8,66 @@
             padding: 0;
         }
         .card {
-            background-color: rgba(var(--bs-success-rgb), var(--bs-bg-opacity));
-            color: #fff;
-            margin-bottom: 20px;
+            background-color: rgba(var(--bs-white-rgb), var(--bs-text-opacity));
+            color: #fff !important;
         }
-        .card-header {
-            background-color: rgb(24, 122, 77);
-            color: #fff;
-            border: 1px solid white;
+        .card-body {
+            padding: 0;
+        }
 
+        .table-custom-black th,
+        .table-custom-black td {
+            border-color: #000 !important;
         }
-        .workout-details {
-            background-color: rgb(24, 122, 77);
-            color: #fff;
-            padding: 15px;
-            margin-bottom: 20px;
-
-
-        }
-        .workout-details h1 {
-            color: #fff;
-            margin-top: 0;
-        }
-        .exercise-log {
-            margin-bottom: 20px;
-        }
-        .black-table {
-            background-color: rgba(0, 0, 0, 0.7);
-            color: #fff;
-            border-collapse: collapse;
-            width: 100%;
-        }
-        .black-table th, .black-table td {
-            border: 1px solid white;
-            padding: 8px;
-            text-align: left;
-        }
-        .black-table th {
-            background-color: rgba(0, 0, 0, 0.9);
+        .card-header
+        {
+            margin-top: 50px;
         }
     </style>
 
-    <div class="container">
-        <div class="workout-details">
-            <div class="card mb-3">
-                <div class="card-body">
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
                     <h5 class="card-title">Workout Name: <span style="color: #fff;">{{ workout.name }}</span></h5>
+                    <p class="card-text">Duration: <span style="color: #fff;">{{ totalDuration }} minutes</span></p>
+                    <div class="card-header bg-success text-white">
+                        <h5 class="card-title">Exercise Log</h5>
+                    </div>
+                    <div class="card-body">
+
+                        {% if workout.exerciselogs is not empty %}
+                            <table class="table table-dark table-bordered text-white">
+                                <thead>
+                                <tr>
+                                    <th>Exercise Name</th>
+                                    <th>Duration</th>
+                                    <th>Reps</th>
+                                    <th>Sets</th>
+                                    <th>Weight</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for exerciselog in workout.exerciselogs %}
+                                    <tr>
+                                        <td>{{ exerciselog.exercise.name }}</td>
+                                        <td>{{ exerciselog.duration }}</td>
+                                        <td>{{ exerciselog.reps }}</td>
+                                        <td>{{ exerciselog.sets }}</td>
+                                        <td>{{ exerciselog.weight }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <div class="alert alert-info" role="alert">
+                                No exercise logs found for this workout.
+                            </div>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
-
-        {% if workout.exerciselogs is not empty %}
-            <div class="exercise-log">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Exercise Log</h2>
-                    </div>
-                    <div class="card-body">
-                        <table class="black-table">
-                            <thead>
-                            <tr>
-                                <th>Exercise Name</th>
-                                <th>Duration</th>
-                                <th>Reps</th>
-                                <th>Sets</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for exerciselog in workout.exerciselogs %}
-                                <tr>
-                                    <td>{{ exerciselog.exercise.name }}</td>
-                                    <td>{{ exerciselog.duration }}</td>
-                                    <td>{{ exerciselog.reps }}</td>
-                                    <td>{{ exerciselog.sets }}</td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        {% else %}
-            <div class="alert alert-info" role="alert">
-                No exercise logs found for this workout.
-            </div>
-        {% endif %}
     </div>
 {% endblock %}
 

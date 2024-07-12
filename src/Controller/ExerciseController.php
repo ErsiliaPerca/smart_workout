@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Exercise;
 use App\Form\ExerciseType;
+use App\Repository\ExerciseLogRepository;
 use App\Repository\ExerciseRepository;
 use App\Repository\MuscleGroupRepository;
 use App\Service\ExerciseService;
@@ -111,5 +112,23 @@ public function exercisesForMuscleGroup(MuscleGroupRepository $muscleGroupReposi
         'exercises' => $exercises,
     ]);
 }
+    /**
+     * @Route("/{id}/logs", name="exercise_logs", methods={"GET"})
+     */
+    #[Route('/exercise/{id}/logs', name: 'exercise_logs', methods: ['GET'])]
+    public function exerciseLogs(Exercise $exercise, ExerciseLogRepository $exerciseLogRepository, int $id): Response
+ {
+     $user = $this->getUser();
+     $userId = $user->getId();
 
+        $isTrainer = in_array('ROLE_TRAINER', $user->getRoles());
+        // Retrieve exercise logs for the exercise ID and user ID
+        $exerciseLogs = $exerciseLogRepository->findAllExerciseLogsForExerciseAndUser($id, $userId, $isTrainer);
+
+        return $this->render('exercise/logs.html.twig', [
+            'exercise' => $exercise,
+            'exerciseLogs' => $exerciseLogs,
+            'isTrainer' => $isTrainer,
+        ]);
+    }
 }

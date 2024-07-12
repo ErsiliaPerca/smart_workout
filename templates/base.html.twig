@@ -23,6 +23,7 @@
             padding: 10px 20px;
             margin-top: 10px;
             margin-bottom: 10px;
+
         }
         nav a {
             color: #ffffff;
@@ -37,7 +38,9 @@
                 font-style: italic;
             }
         }
-
+.border-top  {
+    border-top: 1px solid #134e33 !important;
+}
         footer {
             position: fixed;
             left: 0;
@@ -49,7 +52,7 @@
             text-align: center;
             margin-bottom: 50px;
             border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
-            border-bottom: 1px solid black !important;
+            border-bottom: 1px solid #134e33 !important;
         }
         .create-workout-button {
             position: fixed;
@@ -189,25 +192,21 @@
 <body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-    <a class="navbar-brand" href="{{ path('app_workout') }}">Smart Workout</a>
+    <a class="navbar-brand" href="{{  app.user ? path('show_user', {'id': app.user.id}) : '#' }}">Smart Workout</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-{#        <form class="d-flex ms-auto">#}
-{#            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">#}
-{#            <button class="btn btn-outline-light" type="submit">Search</button>#}
-{#        </form>#}
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             {% if app.user %}
                 <li class="nav-item"><a class="nav-link" href="{{ path('app_workout') }}">Workouts</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ path('create_workout') }}">Create Workout</a></li>
+{#                <li class="nav-item"><a class="nav-link" href="{{ path('create_workout') }}">Create Workout</a></li>#}
                 <li class="nav-item"><a class="nav-link" href="{{ path('index_exercise') }}">Exercises</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ path('create_exercise') }}">Create Exercise</a></li>
+{#                <li class="nav-item"><a class="nav-link" href="{{ path('create_exercise') }}">Create Exercise</a></li>#}
                 {% if is_granted('ROLE_TRAINER') %}
                 <li class="nav-item"><a class="nav-link" href="{{ path('index_user') }}">Users</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ path('index_muscle_group') }}">Muscle Group</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ path('create_muscle_group') }}">Create Muscle Group</a></li>
+{#                <li class="nav-item"><a class="nav-link" href="{{ path('create_muscle_group') }}">Create Muscle Group</a></li>#}
             {% endif %}
             {% endif %}
         </ul>
@@ -235,23 +234,6 @@
         </ul>
     </div>
 </nav>
-<div class="create-workout-button">
-    {% if app.user %}
-    <button onclick="window.location.href='{{ path('create_workout') }}'">
-        <span>
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 0h24v24H0z" fill="none"></path>
-                <path
-                        d="M24 12l-5.657 5.657-1.414-1.414L21.172 12l-4.243-4.243 1.414-1.414L24 12zM2.828 12l4.243 4.243-1.414 1.414L0 12l5.657-5.657L7.07 7.757 2.828 12zm6.96 9H7.66l6.552-18h2.128L9.788 21z"
-                        fill="currentColor"
-                ></path>
-            </svg>
-            Create Workout
-        </span>
-    </button>
-    {% endif %}
-</div>
-
 <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2024 - Smart Workout

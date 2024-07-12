@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Exercises!{% endblock %}
+{% block title %}Exercises{% endblock %}
 
 {% block body %}
     <div class="container mt-4">
@@ -38,6 +38,7 @@
                                     <td>
                                         <div style="display: flex; gap: 10px;">
                                             <a href="{{ path('edit_exercise', { 'id': exercise.id }) }}" class="btn btn-success btn-sm">Edit</a>
+                                            <a href="{{ path('exercise_logs', { 'id': exercise.id }) }}" class="btn btn-success btn-sm">Logs</a>
                                             <button type="button" class="btn btn-danger btn-sm" onclick="deleteExercise('{{ path('delete_exercise', { 'id': exercise.id }) }}')">
                                                 Delete
                                             </button>
@@ -57,6 +58,16 @@
             </div>
         </div>
     </div>
+    <button class="icon-btn" onclick="window.location.href='{{ path('create_exercise') }}'">
+        <div class="icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                {#                <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke-width="1.5"></path>#}
+                <path d="M8 12H16" stroke-width="1.5"></path>
+                <path d="M12 16V8" stroke-width="1.5"></path>
+            </svg>
+        </div>
+        <span class="text">Create Exercise</span>
+    </button>
     <style>
         .card {
             background-color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) ;
@@ -71,6 +82,94 @@
         .table-custom-black th,
         .table-custom-black td {
             border-color: #000 !important;
+        }
+        .icon-btn {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 35px;
+            height: 35px;
+
+            border-radius: 50%;
+            cursor: pointer;
+            position: fixed;
+            overflow: hidden;
+            transition: width 0.3s ease-in-out;
+            font-family: inherit;
+            border-color: #41af48;
+            /* border: none;*/
+            background-color: #1b2125;
+            bottom: 100px;
+            right: 20px;
+            margin-bottom: 5px;
+            z-index: 1000;
+
+        }
+
+        .icon {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .icon svg {
+            width: 17px;
+            height: 24px;
+            stroke: #1db954;
+            fill: none;
+            transition: fill 0.3s, stroke 0.3s;
+        }
+
+        .text {
+            position: absolute;
+            opacity: 0;
+            right: 0%;
+            width: 0%;
+            color: white;
+            font-size: 1em;
+            font-weight: 600;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .icon-btn:hover {
+            width: 125px;
+            background: linear-gradient(to right, #1db954, #075e54);
+            border-radius: 40px;
+            /*padding: 0 10px;*/
+        }
+
+        .icon-btn:hover .icon {
+            transform: translateX(-30%);
+            width: 30%;
+            transition-duration: .3s;
+            padding-left: 20px;
+            color: #00ff75;
+            display: none;
+        }
+
+        .icon-btn:hover .text {
+            opacity: 1;
+            width: 100%;
+            font-size:13px;
+            transition-duration: .3s;
+            padding-right: 10px;
+        }
+        .icon-btn {
+            transform: translate(2px, 2px);
+        }
+        .icon svg {
+            width: 30px;
+            height: 30px;
+            stroke: #1db954;
+            fill: none;
+            transition: fill 0.3s, stroke 0.3s;
+        }
+        .icon-btn button svg {
+            width: 1em;
+            height: 1em;
+            margin-right: 0.3em;
         }
 
     </style>
@@ -93,7 +192,4 @@
         }
     </script>
 {% endblock %}
-
-
-
 

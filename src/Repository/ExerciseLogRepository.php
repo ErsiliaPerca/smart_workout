@@ -40,4 +40,24 @@ class ExerciseLogRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+   /**
+     * Find all exercise logs for a specific exercise and authenticated user.
+     *
+     * @param int $exerciseId
+     * @param int $userId
+     * @return ExerciseLog[]
+     */
+    public function findAllExerciseLogsForExerciseAndUser(int $exerciseId, int $userId, bool $isTrainer): array
+    {
+        $qb = $this->createQueryBuilder('el')
+            ->join('el.workout', 'w')
+            ->andWhere('el.exercise = :exerciseId')
+            ->setParameter('exerciseId', $exerciseId);
+        if (!$isTrainer) {
+            $qb->andWhere('w.person = :userId')
+                ->setParameter('userId', $userId);
+        }
+        return $qb->getQuery()->getResult();
+    }
+
 }

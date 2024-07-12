@@ -21,9 +21,16 @@ class WorkoutController extends AbstractController
         /** @var User $user */
         $user = $this->getUser();
         if ($this->isGranted('ROLE_TRAINER')) {
-            $workouts = $workoutService->findAllWorkouts(); // Toate antrenamentele
+            $workouts = $workoutService->findAllWorkouts();
         } else {
             $workouts = $workoutService->findWorkoutsByUser($user);
+        }
+        foreach ($workouts as $workout) {
+            $totalDuration = 0;
+            foreach ($workout->getExerciseLogs() as $exerciseLog) {
+                $totalDuration += $exerciseLog->getDuration();
+            }
+            $workout->totalDuration = $totalDuration;
         }
         return $this->render('workout/index.html.twig', [
             'workouts' => $workouts,
@@ -89,9 +96,14 @@ class WorkoutController extends AbstractController
                 'No workout found for id ' . $id
             );
         }
+        $totalDuration = 0;
+        foreach ($workout->getExerciseLogs() as $exerciseLog) {
+            $totalDuration += $exerciseLog->getDuration();
+        }
 
         return $this->render('workout/show.html.twig', [
             'workout' => $workout,
+            'totalDuration' => $totalDuration
         ]);
     }
 

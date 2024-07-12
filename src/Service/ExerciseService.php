@@ -21,6 +21,7 @@ class ExerciseService
 
     }
 
+
 //    public function getAllExercises()
 //    {
 //        return $this->exerciseRepository->findAll();
@@ -33,7 +34,7 @@ class ExerciseService
     {
         $existingExercise = $this->exerciseRepository->findByName($exercise->getName());
         if ($existingExercise) {
-            throw new \Exception("Exercise already exists");
+            throw new \Exception("This exercise already exists!");
         }
         $this->exerciseRepository->saveExercise($exercise);
     }
@@ -45,7 +46,7 @@ class ExerciseService
     {
         $existingExercise = $this->exerciseRepository->findByNameExcludingId($exercise->getName(),  $exercise->getId());
         if ($existingExercise) {
-            throw new \Exception("Another exercise with the same name already exists");
+            throw new \Exception("Another exercise with the same name already exists!");
         }
         $this->exerciseRepository->saveExercise($exercise);
     }

@@ -4,24 +4,100 @@
 
 {% block body %}
     <style>
-        .input-text {
-            color: white !important;
+        /*.input-text {*/
+        /*    color: white !important;*/
+        /*}*/
+
+        .card {
+            background-color: rgba(var(--bs-white-rgb), var(--bs-text-opacity));
+            color: #fff !important;
+            opacity: 2;
+        }
+
+        .card-body {
+            background-color: #22272d !important;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .card-header {
+            background-color: rgb(25, 135, 84);
+            color: #fff;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+            padding: 10px 15px;
+        }
+
+        .btn-success {
+            background-color: #1c6142;
+            border-color: #145135;
+        }
+
+        .btn-success:hover {
+            background-color: #469873;
+            border-color: #305c48;
+        }
+
+        .form-label {
+            color: #fff;
+        }
+
+        .form-control {
+            background-color: #22272d;
+            color: #fff;
+            border-color: #6c757d;
+        }
+
+        .exercise-log-text {
+            color: #343a40;
+        }
+
+        .table-container {
+            max-height: 280px;
+            overflow-y: auto;
+            padding-right: 15px;
+            scrollbar-width: thin;
+            scrollbar-color: #6c757d #343a40;
+
+        }
+
+        .table-container::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .table-container::-webkit-scrollbar-track {
+            background: #343a40;
+        }
+
+        .table-container::-webkit-scrollbar-thumb {
+            background-color: #6c757d;
+            border-radius: 20px;
+            border: 3px solid #343a40;
+        }
+
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background-color: #5a6268;
+        }
+        .col-form-label {
+            opacity: 0;
+            padding-top: 0;
+            padding-bottom: 0;
         }
     </style>
+
     <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header text-white">
+                    <div class="card-header bg-success text-white">
                         <h5 class="card-title">Create Workout</h5>
                     </div>
-                    <div class="card-body" style="background-color: #343a40; color: #fff;">
+                    <div class="card-body">
                         {{ form_start(form) }}
 
                         <label>Name</label>
                         {{ form_widget(form.name, {'attr': {'class': 'input-field input-text'}}) }}
 
-                        <ul class="list-unstyled exerciseLogs"
+                        <ul class="list-unstyled exerciseLogs table-container"
                             data-index="{{ form.exerciseLogs|length > 0 ? form.exerciseLogs|last.vars.name + 1 : 0 }}"
                             data-prototype="{{ form_widget(form.exerciseLogs.vars.prototype)|e('html_attr') }}"
                         >
@@ -39,40 +115,6 @@
             </div>
         </div>
     </div>
-
-    <style>
-        .card {
-
-            background-color: #22272d;
-            border: 1px solid rgba(0, 0, 0, 0.125);
-            color: #fff; /* Text alb */
-        }
-        .card-header {
-            background-color: rgb(25, 135, 84);
-            color: #fff; /* Alb */
-            border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-        }
-        .card-body {
-            background-color: #22272d !important;
-        }
-        .form-label {
-            color: #fff;
-        }
-        .form-control {
-            background-color: #22272d ;
-            color: #fff;
-            border-color: #6c757d;
-        }
-
-        .btn-success {
-            background-color: #1c6142;
-            border-color: #145135;
-        }
-        .btn-success:hover {
-            background-color: #469873;
-            border-color: #305c48;
-        }
-    </style>
 
     <script>
         document
@@ -108,6 +150,13 @@
             });
 
             item.appendChild(removeFormButton);
+
+
+            item.scrollIntoView({ behavior: 'smooth', block: 'end' });
         }
     </script>
 {% endblock %}
+
+
+
+

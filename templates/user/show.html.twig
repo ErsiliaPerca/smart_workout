@@ -4,55 +4,62 @@
 
 {% block body %}
     <style>
-
         .anchor {
             text-decoration: none;
-            color: #fff;
-            width: 100%;
-        }
-        .card {
-            background-color: rgba(var(--bs-success-rgb), var(--bs-bg-opacity));
-            color: #fff;
-            margin-bottom: 20px;
-        }
-        .card-header {
-            background-color: #343a40;
-            color: #fff;
-        }
-        .user-details {
-            background-color: rgb(24, 122, 77);
-            color: #fff;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-        .user-details h1 {
-            color: #fff;
-            margin-top: 0;
-        }
-        .workouts {
-            margin-bottom: 20px;
-        }
-        .list-group-item {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-color: #000;
-        }
-        .list-group-item:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        .alert-info {
-            background-color: #343a40;
-            color: #fff;
-        }
+                    color: #fff;
+                    width: 100%;
+                }
+                .card {
+                    background-color: rgba(var(--bs-success-rgb), var(--bs-bg-opacity));
+                    color: #fff;
+                    margin-bottom: 20px;
+                    border: none;
+
+                }
+                .card-header {
+                    background-color: #343a40;
+                    color: #fff;
+                    border: none;
+                    padding: 10px 20px;
+                }
+                .user-details {
+                    background-color: rgb(24, 122, 77);
+                    color: #fff;
+                    padding: 20px;
+                    margin-bottom: 20px;
+                    border-radius: 15px;
+                }
+                .user-details h1 {
+                    color: #fff;
+                    margin-top: 0;
+                    font-size: 2rem;
+                }
+                .user-details p {
+                    margin-bottom: 0;
+                }
+                .workouts {
+                    margin-bottom: 20px;
+                }
+                .list-group-item {
+                    background-color: rgba(255, 255, 255, 0.05);
+                    border-color: #000;
+                }
+                .list-group-item:hover {
+                    background-color: rgba(255, 255, 255, 0.1);
+                }
+                .alert-info {
+                    background-color: #343a40;
+                    color: #fff;
+                    border: none;
+                    padding: 15px;
+                    margin-bottom: 20px;
+                }
     </style>
     <div class="container">
         <div class="user-details">
             <h1>User Details</h1>
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Name: <span style="color: #fff;">{{ user.name }}</span></h5>
-                    <p class="card-text"><strong>Email:</strong> <span style="color: #fff;">{{ user.email }}</span></p>
-                </div>
-            </div>
+            <p><strong>Name:</strong> {{ user.name }}</p>
+                        <p><strong>Email:</strong> {{ user.email }}</p>
         </div>
 
         {% if user.workouts is not empty %}
@@ -79,4 +86,3 @@
         {% endif %}
     </div>
 {% endblock %}
-

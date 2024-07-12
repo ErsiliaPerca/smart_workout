@@ -7,6 +7,7 @@
         .input-text {
             color: white !important;
         }
+
         .card {
             background-color: #22272d;
             border: 1px solid rgba(0, 0, 0, 0.125);
@@ -35,6 +36,7 @@
         .btn:hover {
             background-color: #469873;
             border-color: #305c48;
+
         }
         .btn {
             background-color: #1c6142;
@@ -69,7 +71,7 @@
                         {{ form_start(form) }}
                         <div class="field">
                             {{ form_label(form.name, 'Name', {'label_attr': {'class': 'form-label'}}) }}
-                            {{ form_widget(form.name, {'attr': {'class': 'input-field', 'placeholder': form.name.vars.label}}) }}
+                            {{ form_widget(form.name, {'attr': {'class': 'input-field'}}) }}
                         </div>
                         {{ form_widget(form.button, {'attr': {'class': 'input-field input-text'}}) }}
                         {{ form_end(form) }}

@@ -18,6 +18,7 @@ class ExerciseLogType extends AbstractType
             ->add('duration')
             ->add('reps')
             ->add('sets')
+            ->add('weight')
             ->add('exercise', EntityType::class, [
                 'class' => Exercise::class,
                 'choice_label' => 'name',

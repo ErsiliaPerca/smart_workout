@@ -19,7 +19,7 @@ class MuscleGroupService
         try {
             $existingMuscleGroup = $this->muscleGroupRepository->findByName($muscleGroup->getName());
             if ($existingMuscleGroup) {
-                throw new \Exception("This muscle group already exists.");
+                throw new \Exception("This muscle group already exists!");
             }
             $this->muscleGroupRepository->saveMuscleGroup($muscleGroup);
             return ["success" => true];
